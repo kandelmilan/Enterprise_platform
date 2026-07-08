@@ -1,0 +1,14 @@
+mkdir -p lib/app/{bindings,routes,theme}
+mkdir -p lib/core/{api,constants,errors,network,services,storage,utils}
+mkdir -p lib/features/auth/data/{datasources,models,repositories}
+mkdir -p lib/features/auth/domain/{entities,repositories,usecases}
+mkdir -p lib/features/auth/presentation/{bindings,controllers,views,widgets}
+
+
+
+
+{
+  "email": "admin@aayumalun.com",
+  "password": "Admin@123",
+  "tenantCode": "AAYUMALUN"
+}
