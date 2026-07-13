@@ -1,14 +1,13 @@
+/// Handles API responses and converts them into Either<Failure, ApiResponse<T>>.
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:enterprise_platform/core/errors/failure.dart';
-import 'package:enterprise_platform/core/utils/app_logger.dart';
+
 import 'api_response.dart';
 
-/// Handles API responses and converts them into Either<Failure, ApiResponse<T>>.
 class ApiResponseHandler {
   ApiResponseHandler._();
 
-  /// Executes an API request and converts the response.
   static Future<Either<Failure, ApiResponse<T>>> handleResponse<T>(
     Future<Response<dynamic>> Function() apiCall,
     T Function(dynamic)? fromJsonT,
@@ -32,18 +31,13 @@ class ApiResponseHandler {
       }
 
       return Left(ServerFailure(apiResponse.message, apiResponse.statusCode));
-    } on DioException catch (e, stackTrace) {
-        AppLogger.error(e.toString(), stackTrace: stackTrace);
-
+    } on DioException catch (e) {
       return Left(_handleDioException(e));
-    } catch (e, stackTrace) {
-      AppLogger.error(e.toString(), stackTrace: stackTrace);
-
+    } catch (e) {
       return Left(UnknownFailure(e.toString()));
     }
   }
 
-  /// Converts DioException into Failure.
   static Failure _handleDioException(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
@@ -74,7 +68,6 @@ class ApiResponseHandler {
     }
   }
 
-  /// Converts HTTP status codes into Failures.
   static Failure _handleBadResponse(Response<dynamic>? response) {
     if (response == null) {
       return const ServerFailure('Unknown server error.');
@@ -85,7 +78,13 @@ class ApiResponseHandler {
     String message = 'Something went wrong.';
 
     if (response.data is Map<String, dynamic>) {
-      message = (response.data['message'] as String?) ?? message;
+      final data = response.data as Map<String, dynamic>;
+
+      message =
+          data['message']?.toString() ??
+          data['detail']?.toString() ??
+          data['title']?.toString() ??
+          message;
     }
 
     switch (statusCode) {
@@ -93,30 +92,18 @@ class ApiResponseHandler {
         return ValidationFailure(message, statusCode);
 
       case 401:
-        return AuthenticationFailure(
-          message.isEmpty ? 'Unauthorized.' : message,
-          statusCode,
-        );
+        return AuthenticationFailure(message, statusCode);
 
       case 403:
-        return AuthenticationFailure(
-          message.isEmpty ? 'Forbidden.' : message,
-          statusCode,
-        );
+        return AuthenticationFailure(message, statusCode);
 
       case 404:
-        return ServerFailure(
-          message.isEmpty ? 'Resource not found.' : message,
-          statusCode,
-        );
+        return ServerFailure(message, statusCode);
 
       case 500:
       case 502:
       case 503:
-        return ServerFailure(
-          message.isEmpty ? 'Server error.' : message,
-          statusCode,
-        );
+        return ServerFailure(message, statusCode);
 
       default:
         return ServerFailure(message, statusCode);

@@ -47,3 +47,5 @@ app.*.map.json
 
 
 /lib/features
+
+/zz.txt

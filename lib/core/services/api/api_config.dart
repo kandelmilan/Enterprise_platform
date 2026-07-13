@@ -1,8 +1,9 @@
 // It will: Load BASE_URL from .env , Configure Dio , Set timeouts , Add interceptors , Handle common request options
 // Every repository will use this client.
 import 'package:dio/dio.dart';
-import 'package:enterprise_platform/core/api/auth_interceptor.dart';
+import 'package:enterprise_platform/core/services/api/api_interceptor.dart';
 import 'package:enterprise_platform/core/constants/app_constants.dart';
+import 'package:requests_inspector/requests_inspector.dart';
 
 class ApiConfig {
   final Dio dio;
@@ -12,7 +13,8 @@ class ApiConfig {
     // AuthInterceptor for refresh + retry, to avoid infinite refresh loops.
     final refreshDio = Dio(_baseOptions());
 
-    dio.interceptors.add(AuthInterceptor(refreshDio));
+    dio.interceptors.add(ApiInterceptor(refreshDio));
+    dio.interceptors.add(RequestsInspectorInterceptor());
   }
 
   static BaseOptions _baseOptions() {

@@ -1,27 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import 'bindings/initial_binding.dart';
-import 'routes/app_pages.dart';
-import 'routes/app_routes.dart';
-import 'theme/app_theme.dart';
-
-class App extends StatelessWidget {
-  const App({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Enterprise Platform',
-      debugShowCheckedModeBanner: false,
-
-      theme: AppTheme.light,
-
-      initialBinding: InitialBinding(),
-
-      initialRoute: AppRoutes.splash,
-
-      getPages: AppPages.pages,
-    );
-  }
-}
+export 'bindings/initial_binding.dart';
+export 'bindings/initial_bindings/api_binding.dart';
+export 'bindings/initial_bindings/auth_dependency_binding.dart';
+export 'bindings/initial_bindings/main_nav_binding.dart';
+export 'bindings/initial_bindings/storage_binding.dart';
+export 'bindings/initial_bindings/tenant_dependency_binding.dart';
+export 'routes/app_pages.dart';
+export 'routes/app_routes.dart';
+export 'theme/app_colors.dart';
+export 'theme/app_theme.dart';
+export 'theme/text_styles.dart';
+export 'main_app.dart';
+export 'bindings/initial_bindings/session_binding.dart';

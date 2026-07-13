@@ -1,12 +1,20 @@
-import 'package:enterprise_platform/core/api/api_config.dart';
-import 'package:enterprise_platform/core/storage/secure_storage_service.dart';
+import 'package:enterprise_platform/app/bindings/initial_bindings/api_binding.dart';
+import 'package:enterprise_platform/app/bindings/initial_bindings/auth_dependency_binding.dart';
+import 'package:enterprise_platform/app/bindings/initial_bindings/main_nav_binding.dart';
+import 'package:enterprise_platform/app/bindings/initial_bindings/session_binding.dart';
+import 'package:enterprise_platform/app/bindings/initial_bindings/storage_binding.dart';
+import 'package:enterprise_platform/app/bindings/initial_bindings/tenant_dependency_binding.dart';
+
 import 'package:get/get.dart';
 
 class InitialBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<ApiConfig>(ApiConfig(), permanent: true);
-
-    Get.put<SecureStorageService>(SecureStorageService(), permanent: true);
+    StorageBinding().dependencies();
+    ApiBinding().dependencies();
+    AuthDependencyBinding().dependencies();
+    TenantDependencyBinding().dependencies();
+    MainNavBinding().dependencies();
+    SessionBinding().dependencies();// for the inactivity
   }
 }

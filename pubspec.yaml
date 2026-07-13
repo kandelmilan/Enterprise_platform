@@ -13,10 +13,15 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
+  equatable: ^2.0.7
   get: ^4.7.2
   dio: ^5.10.0
   flutter_secure_storage: ^9.2.2
   requests_inspector: ^5.2.2
+  flutter_native_splash: ^2.4.7
+  google_fonts: ^6.2.1
+  font_awesome_flutter: ^10.8.0
+  flutter_svg: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -27,4 +32,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - .env
+    - assets/images/onboarding/onboarding1.svg
+    - assets/images/onboarding/onboarding2.svg
+    - assets/images/onboarding/onboarding3.svg
+    - assets/images/auth/login_illustration.svg
+    - assets/images/auth/forgot_password_illustration.svg

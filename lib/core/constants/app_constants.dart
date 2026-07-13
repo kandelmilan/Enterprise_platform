@@ -12,9 +12,9 @@ class AppConstants {
   // API
   // =========================
 
-  static const Duration connectTimeout = Duration(seconds: 30);
-  static const Duration receiveTimeout = Duration(seconds: 30);
-  static const Duration sendTimeout = Duration(seconds: 30);
+  static const Duration connectTimeout = Duration(seconds: 60);
+  static const Duration receiveTimeout = Duration(seconds: 60);
+  static const Duration sendTimeout = Duration(seconds: 60);
 
   // =========================
   // Storage Keys
@@ -22,7 +22,11 @@ class AppConstants {
 
   static const String accessTokenKey = 'access_token';
   static const String refreshTokenKey = 'refresh_token';
-  static const String userKey = 'user';
+
+  static const String userIdKey = 'user_id';
+  static const String tenantIdKey = 'tenant_id';
+  static const String sessionIdKey = 'session_id';
+  static const String roleIdKey = 'role_id';
 
   // =========================
   // Pagination
@@ -35,4 +39,9 @@ class AppConstants {
   // =========================
 
   static const Duration animationDuration = Duration(milliseconds: 300);
+
+  /// App
+  static const String firstLaunchKey = 'first_launch';
+
+  static const String lastActivityKey = 'last_activity';
 }

@@ -12,3 +12,65 @@ mkdir -p lib/features/auth/presentation/{bindings,controllers,views,widgets}
   "password": "Admin@123",
   "tenantCode": "AAYUMALUN"
 }
+
+
+LoginView
+      │
+      ▼
+AuthController
+      │
+      ▼
+LoginUserUseCase
+      │
+      ▼
+AuthRepository (Domain)
+      │
+      ▼
+AuthRepositoryImpl (Data)
+      │
+      ▼
+LoginRequestModel.fromEntity()
+      │
+      ▼
+AuthRemoteDataSource
+      │
+      ▼
+ApiService (Dio)
+      │
+      ▼
+POST /auth/login
+
+
+
+
+
+Native Splash
+      │
+      ▼
+SplashView
+(2 seconds animation)
+      │
+      ▼
+SplashController
+      │
+      ├── First Launch ?
+      │
+      │      YES
+      │       │
+      │       ▼
+      │  OnboardingView
+      │       │
+      │       ▼
+      │  Save First Launch = false
+      │       │
+      │       ▼
+      │      Login
+      │
+      └── NO
+             │
+             ▼
+      Logged In ?
+             │
+      ┌──────┴───────┐
+      ▼              ▼
+    Home          Login
